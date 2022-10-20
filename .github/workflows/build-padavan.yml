@@ -32,13 +32,13 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev gcc-multilib libssl-dev python
     - name: Clone source code
       run: |
-        git clone -b main --depth=1 https://github.com/monw/rt-n56u.git /opt/rt-n56u
+        git clone -b main --depth=1 https://github.com/bauw2008/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: TP7300
+        TNAME: ZTE_E8820S
       run: |
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
@@ -97,6 +97,7 @@ jobs:
         #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
         #格式如下：
+        echo "CONFIG_FIRMWARE_INCLUDE_MSD_LITE=y" >> .config
         #sed -i '/自定义项/d' .config
         #echo "自定义项=y" >> .config
         #########################################################################################
