@@ -1,5 +1,5 @@
 #修改TNAME: 注意名称要与configs/templates/目录下的名字相同
-name: Build Padavan
+name: Padavan4.4
 
 on: 
   release:
