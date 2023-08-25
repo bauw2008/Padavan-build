@@ -20,8 +20,20 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
+    - name: Setup Node.js
+      uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+          check-latest: true
+          cache-dependency-path: '**/go.sum'
+
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18  # 指定你想要使用的Node.js版本
+        
     - name: Checkout
       uses: actions/checkout@main
+      
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -37,19 +49,6 @@ jobs:
         sh dl_toolchain.sh
         mkdir -p /opt/images/
     - name: Build Firmware
-        uses: actions/checkout@v3
-      - uses: hendrikmuhs/ccache-action@v1.2
-        with:
-          key: ${{ matrix.target }}
-          append-timestamp: false
-      - uses: actions/setup-go@v4
-        with:
-          go-version: '1.20'
-          check-latest: true
-          cache-dependency-path: '**/go.sum'
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
       env:
         TNAME: ZTE_E8820S
       run: |
